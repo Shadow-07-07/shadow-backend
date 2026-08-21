@@ -149,7 +149,7 @@ const getLikedVideos = asyncHandler(async (req, res) => {
     select: "title description thumbnail duration views owner",
     populate: {
       path: "owner",
-      select: "username fullname avatar"
+      select: "username fullName avatar"
     }
   }).sort({ createdAt: -1 })
 

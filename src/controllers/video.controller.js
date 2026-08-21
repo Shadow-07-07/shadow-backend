@@ -161,7 +161,7 @@ const publishAVideo = asyncHandler(async (req, res) => {
     isPublished: true
   })
 
-  const createdVideo = await Video.findById(video._id).populate("owner", "username fullname avatar")
+  const createdVideo = await Video.findById(video._id).populate("owner", "username fullName avatar")
 
   return res
     .status(200)
@@ -181,7 +181,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Invalid video ID")
   }
 
-  const video = await Video.findById(videoId).populate("owner", "username fullname avatar")
+  const video = await Video.findById(videoId).populate("owner", "username fullName avatar")
 
   if (!video) {
     throw new ApiError(404, "Video not found")
@@ -245,7 +245,7 @@ const updateVideo = asyncHandler(async (req, res) => {
 
   await video.save()
 
-  const updatedVideo = await Video.findById(video._id).populate("owner", "username fullname avatar")
+  const updatedVideo = await Video.findById(video._id).populate("owner", "username fullName avatar")
 
   return res
     .status(200)
