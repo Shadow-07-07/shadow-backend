@@ -7,13 +7,12 @@ const playlistSchema = new Schema(
       required: true
     },
     description: {
-      type: String,
-      required: true
+      type: String
     },
-    vedios: [
+    videos: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Vedio"
+        ref: "Video"
       }
     ],
     owner: {
