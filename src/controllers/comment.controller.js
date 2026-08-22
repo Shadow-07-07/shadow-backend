@@ -4,12 +4,12 @@ import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { asyncHandler } from "../utils/asyncHandler.js"
 
-const getVedioComments = asyncHandler(async (req, res) => {
-  const { vedioId } = req.params
+const getvideoComments = asyncHandler(async (req, res) => {
+  const { videoId } = req.params
   const { page = 1, limit = 10 } = req.query
 
-  if (!mongoose.Types.ObjectId.isValid(vedioId)) {
-    throw new ApiError(400, "Invalid vedioId")
+  if (!mongoose.Types.ObjectId.isValid(videoId)) {
+    throw new ApiError(400, "Invalid videoId")
   }
 
   const pageNumber = Number(page)
@@ -18,7 +18,7 @@ const getVedioComments = asyncHandler(async (req, res) => {
   const skip = (pageNumber - 1) * limitNumber
 
   const comments = await Comment.find({
-    vedio: vedioId
+    video: videoId
   })
     .populate("owner", "username avatar")
     .sort({ createdAt: -1 })
@@ -26,7 +26,7 @@ const getVedioComments = asyncHandler(async (req, res) => {
     .limit(limitNumber)
 
   const totalComments = await Comment.countDocuments({
-    vedio: vedioId
+    video: videoId
   })
   return res
     .status(200)
@@ -45,11 +45,11 @@ const getVedioComments = asyncHandler(async (req, res) => {
 })
 
 const addComment = asyncHandler(async (req, res) => {
-  const { vedioId } = req.params
+  const { videoId } = req.params
   const { content } = req.body
 
-  if (!mongoose.Types.ObjectId.isValid(vedioId)) {
-    throw new ApiError(400, "Invalid vedioId")
+  if (!mongoose.Types.ObjectId.isValid(videoId)) {
+    throw new ApiError(400, "Invalid videoId")
   }
 
   if (!content || content.trim() === "") {
@@ -59,7 +59,7 @@ const addComment = asyncHandler(async (req, res) => {
   const comment = await Comment.create({
     content: content.trim(),
     owner: req.user._id,
-    vedio: vedioId
+    video: videoId
   })
 
   const createdComment = await Comment.findById(comment._id).populate("owner", "username avatar")
@@ -152,7 +152,7 @@ const deleteComment = asyncHandler(async (req, res) => {
 
 
 export {
-  getVedioComments,
+  getvideoComments,
   addComment,
   updateComment,
   deleteComment

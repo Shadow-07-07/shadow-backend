@@ -11,9 +11,9 @@ const commentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User"
     },
-    vedio: {
+    video: {
       type: Schema.Types.ObjectId,
-      ref: "Vedio"
+      ref: "video"
     }
   },
   {timestamps: true}

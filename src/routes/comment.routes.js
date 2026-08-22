@@ -1,6 +1,6 @@
 import { Router } from "express"
 import {
-  getVedioComments,
+  getvideoComments,
   addComment,
   updateComment,
   deleteComment
@@ -11,7 +11,7 @@ const router = Router()
 
 router.use(verifyJWT)
 
-router.route("/:vedioId").get(getVedioComments).post(addComment)
+router.route("/:videoId").get(getvideoComments).post(addComment)
 
 router.route("/c/:commentId").delete(deleteComment).patch(updateComment)
 
